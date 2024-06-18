@@ -14,10 +14,5 @@ public class StartApp implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        UsuarioEntity usuario1 = new UsuarioEntity();
-        usuario1.setNome("Elis");
-        usuario1.setEmail("Elis@email.com");
-
-        repository.save(usuario1);
     }
 }
