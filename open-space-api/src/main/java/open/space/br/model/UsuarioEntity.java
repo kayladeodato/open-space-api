@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import open.space.br.enums.TipoUsuario;
+
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -20,5 +23,10 @@ public class UsuarioEntity {
     private String nome;
     @Column(nullable = false, length = 50)
     private String email;
+    @Enumerated(EnumType.STRING)
+    private TipoUsuario tipoUsuario;
+    private boolean ativo;
+    private LocalDateTime criadoEm;
+    private LocalDateTime alteradoEm;
 
 }

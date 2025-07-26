@@ -1,6 +1,7 @@
 package open.space.br.controller;
 
-import open.space.br.model.UsuarioEntity;
+import open.space.br.model.UsuarioRequest;
+import open.space.br.model.UsuarioResponse;
 import open.space.br.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,34 +9,42 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("usuarios")
+@RequestMapping("/usuarios")
 public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
-    @PutMapping
-    public void put() {
-
+    @PostMapping(value = "/cadastrar")
+    public void cadastrar(@RequestBody UsuarioRequest request) {
+        service.incluir(request);
     }
 
-    @GetMapping
-    public List<UsuarioEntity> get() {
+    @GetMapping(value = "/alterar/{id}")
+    public Integer alterar(@PathVariable ("id") Integer id, @RequestBody UsuarioRequest request) {
+        return service.alterar(id, request);
+    }
+
+    @GetMapping({"", "/", "/listar"})
+    public List<UsuarioResponse> listar() {
         return service.listar();
     }
 
-    @PostMapping
-    public void post() {
-
-    }
-
     @GetMapping (value = "/{id}")
-    public UsuarioEntity getById(@PathVariable ("id") Integer id) {
+    public UsuarioResponse buscarPorId(@PathVariable ("id") Integer id) {
         return service.buscar(id);
     }
 
-    @DeleteMapping
-    public void delete() {
-
+    @PatchMapping(value = "/ativar/{id}")
+    public void ativar(@PathVariable ("id") Integer id) {
+        service.ativar(id);
     }
+
+    @PatchMapping(value = "/inativar/{id}")
+    public void inativar(@PathVariable ("id") Integer id) {
+        service.inativar(id);
+    }
+
+
+
 
 }
